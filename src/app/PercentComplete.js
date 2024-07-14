@@ -1,3 +1,4 @@
+import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 import { Tomorrow } from 'next/font/google';
 import React, { Component } from 'react';
 
@@ -36,7 +37,7 @@ class PercentComplete extends Component {
 
   // Custom methods
   formatTime() {
-    let time = Math.trunc(((this.state.time - 1703856000000) / 31622400000) * 100000000) / 1000000 + '%'
+    let time = Math.trunc(((this.state.time - 1704085200000) / 31622400000) * 100000000) / 1000000 + '%'
     return time
     // return this.state.time
   }
@@ -44,7 +45,9 @@ class PercentComplete extends Component {
   render() {
     return (
       <div className='p-6 text-4xl text-black'>
-        {this.formatTime()}
+        <ErrorBoundary>
+          {this.formatTime()}
+        </ErrorBoundary>
       </div>
     );
   }
