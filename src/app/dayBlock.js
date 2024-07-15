@@ -9,6 +9,8 @@ class DayBlock extends Component {
         isToday: false,
         isPercent: false,
         percent: 0,
+        percentHour: 0,
+        percentMinute: 0
     };
 
     // Bind methods if necessary
@@ -53,7 +55,9 @@ class DayBlock extends Component {
         if (value.getDate() == this.props.date.getDate() && value.getMonth() == this.props.date.getMonth() && value.getYear() == this.props.date.getYear()) {
             this.setState({
                 isPercent: true,
-                percent: key
+                percent: key,
+                percentHour: value.getHours(),
+                percentMinute: value.getMinutes(),
             });
         }
     }
@@ -61,10 +65,15 @@ class DayBlock extends Component {
 
   render() {
     return (
-      <div className='p-2 text-xl border border-1 rounded-md'>
-        <div className={this.state.isToday ? 'w-fit bg-red-400 rounded-lg' : null}>{this.props.date.getDate()} </div>        
-        <div>
-            {this.state.isPercent ? this.state.percent : null}
+      <div className='p-2 border border-1 rounded-md flex justify-between hover:bg-gray-100'>
+        <div className={this.state.isToday ? 'w-fit h-fit bg-red-400 rounded-full px-1 text-white' : null}>{this.props.date.getDate()} </div>        
+        <div className='group relative h-fit'>
+            <div className='text-red-400'>
+                {this.state.isPercent ? this.state.percent + '%' : null}
+            </div>
+            <div className='absolute invisible bg-gray-700 text-white bottom-full left-1/2 ml-[-30px] p-1 border rounded text-sm group-hover:visible'>
+                {(this.state.percentHour > 12 ? this.state.percentHour % 12 : (this.state.percentHour == 0 ? 12 : this.state.percentHour)) + ':' + (this.state.percentMinute < 10 ? '0' + this.state.percentMinute : this.state.percentMinute) + '' + (this.state.percentHour >= 12 ? 'pm':'am')}
+            </div>
         </div>
     </div>
     );

@@ -94,12 +94,12 @@ class Calendar extends Component {
 
   render() {
     return (
-      <div className='h-full p-6 w-full flex flex-col'>
-        <div className='flex justify-between'>
+      <div className='h-full px-12 pb-12 w-full flex flex-col'>
+        <div className='flex justify-between px-2 border rounded-lg'>
           <button className='text-2xl' onClick={this.subtractMonth}>
             &#129032;
           </button>
-          <div className="text-4xl">
+          <div className="text-4xl pb-1">
             {this.months.get(this.state.today.getMonth())}
           </div>
           <button className='text-2xl' onClick={this.addMonth}>
@@ -107,13 +107,13 @@ class Calendar extends Component {
           </button>
         </div>
         <div className='w-full grid grid-cols-7'>
-          <label className='border border-1 rounded-md flex justify-center'>Sun</label>
-          <label className='border border-1 rounded-md flex justify-center'>Mon</label>
-          <label className='border border-1 rounded-md flex justify-center'>Tues</label>
-          <label className='border border-1 rounded-md flex justify-center'>Weds</label>
-          <label className='border border-1 rounded-md flex justify-center'>Thurs</label>
-          <label className='border border-1 rounded-md flex justify-center'>Fri</label>
-          <label className='border border-1 rounded-md flex justify-center'>Sat</label>
+          <label className='border border-1 rounded-md flex justify-center bg-red-400 text-white'>Sun</label>
+          <label className='border border-1 rounded-md flex justify-center bg-red-400 text-white'>Mon</label>
+          <label className='border border-1 rounded-md flex justify-center bg-red-400 text-white'>Tues</label>
+          <label className='border border-1 rounded-md flex justify-center bg-red-400 text-white'>Weds</label>
+          <label className='border border-1 rounded-md flex justify-center bg-red-400 text-white'>Thurs</label>
+          <label className='border border-1 rounded-md flex justify-center bg-red-400 text-white'>Fri</label>
+          <label className='border border-1 rounded-md flex justify-center bg-red-400 text-white'>Sat</label>
         </div>
         <div className='w-full h-full grid grid-cols-7'>
           {/* {console.log(this.state.percents)} */}
