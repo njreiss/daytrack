@@ -65,17 +65,27 @@ class DayBlock extends Component {
 
   render() {
     return (
-      <div className='p-2 border border-1 rounded-md flex justify-between hover:bg-gray-100'>
-        <div className={this.state.isToday ? 'w-fit h-fit bg-red-400 rounded-full px-1 text-white' : null}>{this.props.date.getDate()} </div>        
-        <div className='group relative h-fit'>
-            <div className='text-red-400'>
-                {this.state.isPercent ? this.state.percent + '%' : null}
-            </div>
-            <div className='absolute invisible bg-gray-700 text-white bottom-full left-1/2 ml-[-30px] p-1 border rounded text-sm group-hover:visible'>
-                {(this.state.percentHour > 12 ? this.state.percentHour % 12 : (this.state.percentHour == 0 ? 12 : this.state.percentHour)) + ':' + (this.state.percentMinute < 10 ? '0' + this.state.percentMinute : this.state.percentMinute) + '' + (this.state.percentHour >= 12 ? 'pm':'am')}
+      <div className='transition ease-in-out duration-300 group relative p-2 border border-1 rounded-md hover:bg-gray-100'>
+        <div className='flex justify-between'>
+            <div className={this.state.isToday ? 'w-fit h-fit bg-red-400 rounded-full px-1 text-white' : null}>
+                {this.props.date.getDate()}
+            </div>        
+            {/* Percent of year and tooltip */}
+            <div className='group/tooltip relative h-fit'>
+                <div className='text-red-400'>
+                    {this.state.isPercent ? this.state.percent + '%' : null}
+                </div>
+                <div className='z-50 absolute invisible bg-gray-700 text-white bottom-full left-1/2 ml-[-30px] p-1 border rounded text-sm group-hover/tooltip:visible'>
+                    {(this.state.percentHour > 12 ? this.state.percentHour % 12 : (this.state.percentHour == 0 ? 12 : this.state.percentHour)) + ':' + (this.state.percentMinute < 10 ? '0' + this.state.percentMinute : this.state.percentMinute) + '' + (this.state.percentHour >= 12 ? 'pm':'am')}
+                </div>
             </div>
         </div>
+        
+        <button className='transition opacity-0 ease-in-out duration-300 invisible absolute bottom-1 right-1 bg-red-400 px-2 text-white text-lg border rounded-full group-hover:visible group-hover:opacity-100'>
+            +
+        </button>
     </div>
+
     );
   }
 }
