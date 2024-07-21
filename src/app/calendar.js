@@ -63,7 +63,6 @@ class Calendar extends Component {
       const aday = new Date(first);
       aday.setDate(first.getDate() + i);
       const day = {date: aday}
-
       // lets check if a day is an even percent 
       allDates.push(day);
     }

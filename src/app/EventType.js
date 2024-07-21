@@ -5,7 +5,8 @@ class EventType extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      showHabitModal: false,
+      showGoalModal: false,
     };
 
     // Bind methods if necessary
@@ -33,15 +34,14 @@ class EventType extends Component {
 
   render() {
     return (
-        <div className='bottom-full w-full h-full bg-red-400 border border-1 border-red-400 rounded-md'>
-          <button className='w-full p-1 whitespace-nowrap bg-white border border-1 border-red-400 rounded-md hover:bg-gray-100'>
+        <div className=' z-20 bottom-full w-full h-full bg-red-400 border border-1 border-red-400 rounded-md'>
+          <button onClick={this.props.showHabit} className='w-full p-1 whitespace-nowrap bg-white border border-1 border-red-400 rounded-md hover:bg-gray-100'>
             New Habit
           </button>
-          <button className='w-full p-1 whitespace-nowrap bg-white border border-1 border-red-400 rounded-md hover:bg-gray-100'>
+          <button onClick={this.props.showGoal} className='w-full p-1 whitespace-nowrap bg-white border border-1 border-red-400 rounded-md hover:bg-gray-100'>
             New Goal
           </button>
         </div>
-
     );
   }
 }
