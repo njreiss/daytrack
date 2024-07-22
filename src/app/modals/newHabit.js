@@ -5,7 +5,7 @@ class NewHabit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      daily: false,
+      daily: true,
       timesDaily: 1,
       dayInterval: 1,
       week: {

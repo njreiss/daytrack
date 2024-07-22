@@ -30,7 +30,10 @@ class NewGoal extends Component {
   }
 
   // Custom methods
-
+  getJSONDate() {
+    let date = this.props.date.toJSON().split('T');
+    return date[0];
+  }
   render() {
     return (
       <div 
@@ -57,9 +60,14 @@ class NewGoal extends Component {
               &#10799;
             </button>
           </div>
-          <div className='text-black'>
-            poop
+          <div className='font-medium pt-2'>
+              Start Date
           </div>
+          <input 
+            type='date' 
+            className='p-2 border border-2 border-gray-300 rounded-md' 
+            defaultValue={this.getJSONDate()}
+          />
         </div>
       </div>
     );
