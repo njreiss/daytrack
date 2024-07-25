@@ -1,5 +1,7 @@
 import { Tomorrow } from 'next/font/google';
 import React, { Component } from 'react';
+import axios from 'axios';
+
 
 class NewHabit extends Component {
   constructor(props) {
@@ -24,6 +26,7 @@ class NewHabit extends Component {
 
     // Bind methods if necessary
     this.toggleWeekdayFocus = this.toggleWeekdayFocus.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     }
 
   // Lifecycle methods
@@ -61,6 +64,21 @@ class NewHabit extends Component {
   handleOnChangeWeekInterval = (event) => {
     this.setState({...this.state,weekInterval: event.target.value})
   }
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('message:', this.state);
+    axios.post('http://localhost:5000/api/data', this.state )
+      .then(response => {
+        console.log('Response:', response.data);
+        // Handle response as needed
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // Handle error as needed
+      });
+  }
+
+
   render() {
     return (
       <div 
@@ -185,7 +203,12 @@ class NewHabit extends Component {
             </div>
             }
             <div className='absolute bottom-0 w-full pb-3 pr-6'>
-              <button className='w-full mt-2 transition ease-in-out duration-200 px-2 py-1 font-medium border-2 border-red-400 rounded-lg hover:bg-red-400 hover:text-white'>Submit</button>
+              <button 
+                className='w-full mt-2 transition ease-in-out duration-200 px-2 py-1 font-medium border-2 border-red-400 rounded-lg hover:bg-red-400 hover:text-white'
+                onClick={this.handleSubmit}
+              >
+                Submit
+              </button>
             </div>
             
           </div>

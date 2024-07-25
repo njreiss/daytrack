@@ -2,6 +2,7 @@ import { Tomorrow } from 'next/font/google';
 import React, { Component } from 'react';
 import DayBlock from "./dayBlock.js"
 import next from 'next';
+import axios from 'axios';
 
 
 class Calendar extends Component {
@@ -18,6 +19,7 @@ class Calendar extends Component {
     this.addMonth = this.addMonth.bind(this);
     this.subtractMonth = this.subtractMonth.bind(this);
     this.getPercents = this.getPercents.bind(this);
+    this.getHabits = this.getHabits.bind(this);
   }
   
 
@@ -38,6 +40,17 @@ class Calendar extends Component {
   // Lifecycle methods
   componentDidMount() {
     // This method runs after the component has been rendered to the DOM
+    axios.get('http://localhost:5000/api/data')
+      .then(response => {
+        console.log('LOG GET RESPONSE');
+        console.log(response.data);
+        this.setState({...this.state, data: response.data, loading: false });
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        this.setState({ error: error.message, loading: false });
+      });
+  
     this.getDays();
     console.log('Component did mount');
   }
@@ -68,6 +81,7 @@ class Calendar extends Component {
     }
 
     allDates = this.getPercents(first, allDates);
+    allDates = this.getHabits(first, allDates);
     return allDates;
   }
   addMonth() {
@@ -85,6 +99,10 @@ class Calendar extends Component {
       today:prevMonth,
       days: this.getDays(prevMonth),
     });
+  }
+  getHabits(firstDay, allDates) {
+    
+    return allDates;
   }
 // 1704085200000
   getPercents(firstDay, allDates) {
