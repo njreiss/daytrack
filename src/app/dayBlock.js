@@ -78,11 +78,11 @@ class DayBlock extends Component {
 
   render() {
     return (
-      <div className='transition ease-in-out duration-300 group relative p-2 border border-1 rounded-md
+      <div className='transition ease-in-out duration-300 relative p-2 group border border-1 rounded-md
       hover:bg-gray-100'
       >
         <div className='flex justify-between'>
-          <div className={this.state.isToday ? 'w-fit h-fit bg-red-400 rounded-full px-1 text-white' : null}>
+          <div className={this.state.isToday ? 'w-fit h-fit bg-red-400 rounded-full px-2 text-white' : null}>
               {this.props.day.date.getDate()}
           </div>        
           {/* Percent of year and tooltip */}
@@ -97,17 +97,17 @@ class DayBlock extends Component {
               </div>
           </div>
         </div>
-        <div className='absolute bottom-1 right-1 group'>
+        <div className='absolute bottom-1 right-1 group/eventtype'>
           <button 
-            onClick={() => this.setState({...this.state, showEventType: true})} 
+            onFocus={() => this.setState({...this.state, showEventType: true})} 
+            onBlur={() => this.setState({...this.state, showEventType: false})}
             className='transition opacity-0 ease-in-out duration-300 invisible bg-red-400 
             px-2 text-white text-lg border rounded-full group-hover:visible group-hover:opacity-100'
           >
               +  
           </button>
           <div 
-          className='transition opacity-0 ease-in-out duration-300 absolute z-10 bottom-full 
-          ml-[-25px] text-black text-sm invisible group-focus-within:visible group-focus-within:opacity-100'
+          className={'transition ease-in-out invisible opacity-0 duration-300 absolute z-10 bottom-full ml-[-25px] text-black text-sm group-focus-within/eventtype:visible group-focus-within/eventtype:opacity-100'}
           >
             <EventType showHabit={this.showHabitModal} showGoal={this.showGoalModal}/>
           </div>

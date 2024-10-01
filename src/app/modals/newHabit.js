@@ -88,7 +88,7 @@ class NewHabit extends Component {
       >
         <div 
           onClick={(event) => event.stopPropagation()} 
-          className='w-min h-[42%] bg-white rounded-lg p-3 relative'
+          className='w-min h-fit bg-white rounded-lg p-3 pb-14 relative'
         >
           <div className='flex justify-between space-x-2 items-start'>
             <input 
@@ -202,15 +202,16 @@ class NewHabit extends Component {
               </div>
             </div>
             }
-            <div className='absolute bottom-0 w-full pb-3 pr-6'>
-              <button 
-                className='w-full mt-2 transition ease-in-out duration-200 px-2 py-1 font-medium border-2 border-red-400 rounded-lg hover:bg-red-400 hover:text-white'
-                onClick={this.handleSubmit}
-              >
-                Submit
-              </button>
-            </div>
-            
+            <div className='absolute bottom-0 w-full'>
+              <div className='pb-3 pr-6'>
+                <button 
+                  className='w-full mt-2 transition ease-in-out duration-200 px-2 py-1 font-medium border-2 border-red-400 rounded-lg hover:bg-red-400 hover:text-white'
+                  onClick={this.handleSubmit}
+                >
+                  Submit
+                </button>
+              </div>
+            </div>    
           </div>
         </div>
       </div>
