@@ -7,7 +7,6 @@ class NewGoal extends Component {
     this.state = {
 
     };
-
     // Bind methods if necessary
     
     }
@@ -30,9 +29,10 @@ class NewGoal extends Component {
   }
 
   // Custom methods
-  getJSONDate() {
-    let date = this.props.date.toJSON().split('T');
-    return date[0];
+  getJSONDate(date) {
+
+    let formattedDate = date.toJSON().split('T');
+    return formattedDate[0];
   }
   render() {
     return (
@@ -42,22 +42,22 @@ class NewGoal extends Component {
       >
         <div 
           onClick={(event) => event.stopPropagation()} 
-          className='w-fit h-1/2 bg-white rounded-lg p-3'
+          className='w-fit h-fit bg-white rounded-lg p-3'
         >
           <div className='flex justify-between space-x-6 items-start'>
             <div>
               <input 
                 type='text' 
                 placeholder='Goal Name' 
-                className='p-2 text-lg font-medium'
+                className='p-2 text-lg font-medium border-2 border-gray-300 rounded-md'
               />
             </div>
             <button 
               onClick={this.props.close} 
-              className='transition ease-in-out duration-300 text-2xl px-2 rounded-3xl hover:bg-red-400 
+              className='align-top transition ease-in-out duration-300 text-lg px-2 rounded-3xl hover:bg-red-400 
               hover:text-white'
             >
-              &#10799;
+              &#x2715;
             </button>
           </div>
           <div className='font-medium pt-2'>
@@ -66,8 +66,22 @@ class NewGoal extends Component {
           <input 
             type='date' 
             className='p-2 border border-2 border-gray-300 rounded-md' 
-            defaultValue={this.getJSONDate()}
+            defaultValue={this.getJSONDate(this.props.today)}
           />
+          <div className='font-medium pt-2'>
+              End Date
+          </div>
+          <input 
+            type='date' 
+            className='p-2 border border-2 border-gray-300 rounded-md' 
+            defaultValue={this.getJSONDate(this.props.date)}
+          />
+          <button 
+            className='w-full mt-2 transition ease-in-out duration-200 px-2 py-1 font-medium border-2 border-red-400 rounded-lg hover:bg-red-400 hover:text-white'
+            onClick={this.handleSubmit}
+          >
+            Submit
+          </button>
         </div>
       </div>
     );

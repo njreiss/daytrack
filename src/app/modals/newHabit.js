@@ -98,10 +98,10 @@ class NewHabit extends Component {
             />
             <button 
               onClick={this.props.close} 
-              className='transition ease-in-out duration-300 text-2xl px-2 rounded-3xl hover:bg-red-400 
+              className='align-top transition ease-in-out duration-300 text-lg px-2 rounded-3xl hover:bg-red-400 
               hover:text-white'
             >
-              &#10799;
+              &#x2715;
             </button>
           </div>
           <div className=''>

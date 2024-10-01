@@ -150,13 +150,13 @@ class Calendar extends Component {
       <div className='h-full px-12 pb-12 w-full flex flex-col'>
         <div className='flex justify-between px-2 border rounded-lg'>
           <button className='text-2xl' onClick={this.subtractMonth}>
-            &#129032;
+            {'<'}
           </button>
           <div className="text-4xl pb-1">
             {this.months.get(this.state.today.getMonth())}
           </div>
           <button className='text-2xl' onClick={this.addMonth}>
-            &#129034;
+            {'>'}
           </button>
         </div>
         <div className='w-full grid grid-cols-7'>

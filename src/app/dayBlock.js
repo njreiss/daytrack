@@ -125,6 +125,7 @@ class DayBlock extends Component {
         <NewGoal 
           close={this.closeGoalModal} 
           date={this.props.day.date}
+          today={this.state.today}
         /> 
         : null}
       </div>
