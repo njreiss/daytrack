@@ -118,12 +118,14 @@ class DayBlock extends Component {
         {this.state.showHabitModal ? 
         <NewHabit 
           close={this.closeHabitModal} 
+          submit={this.props.submitHabit}
           date={this.props.day.date}
         /> 
         : null}
         {this.state.showGoalModal ? 
         <NewGoal 
           close={this.closeGoalModal} 
+          submit={this.props.submitGoal}
           date={this.props.day.date}
           today={this.state.today}
         /> 

@@ -12,6 +12,8 @@ class Calendar extends Component {
       today: new Date(),
       days: this.getDays(new Date()),
       percents: this.getPercents(),
+      habits: [],
+      goals: [],
     };
 
     // Bind methods if necessary
@@ -20,6 +22,8 @@ class Calendar extends Component {
     this.subtractMonth = this.subtractMonth.bind(this);
     this.getPercents = this.getPercents.bind(this);
     this.getHabits = this.getHabits.bind(this);
+    this.handleNewGoal = this.handleNewGoal.bind(this);
+    this.handleNewHabit = this.handleNewHabit.bind(this);
   }
   
 
@@ -40,17 +44,31 @@ class Calendar extends Component {
   // Lifecycle methods
   componentDidMount() {
     // This method runs after the component has been rendered to the DOM
-    axios.get('http://localhost:5000/api/data')
-      .then(response => {
-        console.log('LOG GET RESPONSE');
-        console.log(response.data);
-        this.setState({...this.state, data: response.data, loading: false });
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        this.setState({ error: error.message, loading: false });
+    // Looks like i started some api work! abandoning ship though lets do some local storage stuff
+    // axios.get('http://localhost:5000/api/data')
+    //   .then(response => {
+    //     console.log('LOG GET RESPONSE');
+    //     console.log(response.data);
+    //     this.setState({...this.state, data: response.data, loading: false });
+    //   })
+    //   .catch(error => {
+    //     console.error('Error fetching data:', error);
+    //     this.setState({ error: error.message, loading: false });
+    //   });
+    let habits = localStorage.getItem('habits');
+    if (habits) {
+      this.setState({...this.state, 
+        habits: JSON.parse(habits),
+        
       });
-  
+    }
+    let goals = localStorage.getItem('goals');
+    if (goals) {
+      this.setState({...this.state, 
+        goals: JSON.parse(goals), 
+      });
+    }
+
     this.getDays();
     console.log('Component did mount');
   }
@@ -139,8 +157,16 @@ class Calendar extends Component {
 
     return allDates;
   }
-  dayObject() {
-    
+  handleNewGoal(goal) {
+    // let goals = this.state.goals;
+    // goals.push(goal);
+
+    this.state.goals.push(goal);
+    localStorage.setItem('goals', JSON.stringify(this.state.goals));
+  }
+  handleNewHabit(habit) {
+    this.state.habits.push(habit);
+    localStorage.setItem('habits', JSON.stringify(this.state.habits));
   }
 
   // Custom methods
@@ -169,7 +195,12 @@ class Calendar extends Component {
           <label className='border border-1 rounded-md flex justify-center bg-red-400 text-white'>Sat</label>
         </div>
         <div className='w-full h-full grid grid-cols-7'>
-          {this.state.days.map(day => <DayBlock key={day} day={day}/>)}
+          {this.state.days.map(day => 
+          <DayBlock 
+            key={day} 
+            day={day}
+            submitGoal={this.handleNewGoal}
+            submitHabit={this.handleNewHabit}/>)}
         </div>
       </div>
     );

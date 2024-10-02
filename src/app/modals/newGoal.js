@@ -8,7 +8,7 @@ class NewGoal extends Component {
 
     };
     // Bind methods if necessary
-    
+    this.handleSubmit = this.handleSubmit.bind(this)
     }
 
   // Lifecycle methods
@@ -33,6 +33,9 @@ class NewGoal extends Component {
 
     let formattedDate = date.toJSON().split('T');
     return formattedDate[0];
+  }
+  handleSubmit() {
+    this.props.submit(this.state);
   }
   render() {
     return (
@@ -80,6 +83,7 @@ class NewGoal extends Component {
             className='w-full mt-2 transition ease-in-out duration-200 px-2 py-1 font-medium border-2 border-red-400 rounded-lg hover:bg-red-400 hover:text-white'
             onClick={this.handleSubmit}
           >
+            {/* NEED TO PASS GOAL OBJECT UP */}
             Submit
           </button>
         </div>

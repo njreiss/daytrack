@@ -64,19 +64,24 @@ class NewHabit extends Component {
   handleOnChangeWeekInterval = (event) => {
     this.setState({...this.state,weekInterval: event.target.value})
   }
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('message:', this.state);
-    axios.post('http://localhost:5000/api/data', this.state )
-      .then(response => {
-        console.log('Response:', response.data);
-        // Handle response as needed
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // Handle error as needed
-      });
+  handleSubmit() {
+    this.props.submit(this.state);
   }
+  // handleSubmit = (event) => {
+  //   // event.preventDefault();
+  //   // console.log('message:', this.state);
+  //   // axios.post('http://localhost:5000/api/data', this.state )
+  //   //   .then(response => {
+  //   //     console.log('Response:', response.data);
+  //   //     // Handle response as needed
+  //   //   })
+  //   //   .catch(error => {
+  //   //     console.error('Error:', error);
+  //   //     // Handle error as needed
+  //   //   });
+  //   // looks like i was attempting to implement a backend here as well 
+
+  // }
 
 
   render() {
@@ -208,6 +213,7 @@ class NewHabit extends Component {
                   className='w-full mt-2 transition ease-in-out duration-200 px-2 py-1 font-medium border-2 border-red-400 rounded-lg hover:bg-red-400 hover:text-white'
                   onClick={this.handleSubmit}
                 >
+                  {/* NEED TO PASS HABIT OBJECT UP */}
                   Submit
                 </button>
               </div>
