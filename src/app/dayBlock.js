@@ -112,8 +112,6 @@ class DayBlock extends Component {
             <EventType showHabit={this.showHabitModal} showGoal={this.showGoalModal}/>
           </div>
         </div>
-        {console.log(this.props.day.date.getDate())}
-        {console.log(this.props.day.date)}
         
         {this.state.showHabitModal ? 
         <NewHabit 

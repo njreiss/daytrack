@@ -5,7 +5,9 @@ class NewGoal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      name: '',
+      startDate: this.getJSONDate(this.props.today),
+      endDate: this.getJSONDate(this.props.date),
     };
     // Bind methods if necessary
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -35,7 +37,22 @@ class NewGoal extends Component {
     return formattedDate[0];
   }
   handleSubmit() {
-    this.props.submit(this.state);
+    let valid = this.state.name != '';
+
+    valid = valid && this.state.endDate >= this.state.startDate;
+    if (valid) {
+      this.props.submit(this.state);
+      this.props.close();
+    }
+  }
+  handleNameChange = (event) => {
+    this.setState({name: event.target.value});
+  }
+  handleStartChange = (event) => {
+    this.setState({startDate: event.target.value});
+  }
+  handleEndChange = (event) => {
+    this.setState({endDate: event.target.value})
   }
   render() {
     return (
@@ -53,6 +70,7 @@ class NewGoal extends Component {
                 type='text' 
                 placeholder='Goal Name' 
                 className='p-2 text-lg font-medium border-2 border-gray-300 rounded-md'
+                onChange={this.handleNameChange}
               />
             </div>
             <button 
@@ -70,6 +88,7 @@ class NewGoal extends Component {
             type='date' 
             className='p-2 border border-2 border-gray-300 rounded-md' 
             defaultValue={this.getJSONDate(this.props.today)}
+            onChange={this.handleStartChange}
           />
           <div className='font-medium pt-2'>
               End Date
@@ -78,6 +97,7 @@ class NewGoal extends Component {
             type='date' 
             className='p-2 border border-2 border-gray-300 rounded-md' 
             defaultValue={this.getJSONDate(this.props.date)}
+            onChange={this.handleEndChange}
           />
           <button 
             className='w-full mt-2 transition ease-in-out duration-200 px-2 py-1 font-medium border-2 border-red-400 rounded-lg hover:bg-red-400 hover:text-white'
