@@ -7,6 +7,7 @@ class NewHabit extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: '',
       daily: true,
       timesDaily: 1,
       dayInterval: 1,
@@ -22,11 +23,14 @@ class NewHabit extends Component {
       weekdayFocus: true,
       daysWeekly: 1,
       weekInterval: 1,
+      startDate: this.getJSONDate(),
+
     };
 
     // Bind methods if necessary
     this.toggleWeekdayFocus = this.toggleWeekdayFocus.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleNameChange = this.handleNameChange(this);
     }
 
   // Lifecycle methods
@@ -47,25 +51,74 @@ class NewHabit extends Component {
   }
 
   // Custom methods
+  handleNameChange = (event) => {
+    this.setState({ name: event.target.value})
+  }
   getJSONDate() {
     let date = this.props.date.toJSON().split('T');
     return date[0];
   }
+  handleStartDateChange = (event) => {
+    this.setState({ startDate: event.target.value});
+  }
   handleOnChangeTimesAday = (event) => {
-    this.setState({...this.state, timesDaily: event.target.value});
+    this.setState({ timesDaily: event.target.value});
   }
   handleOnChangeDayInterval = (event) => {
-    this.setState({...this.state, dayInterval: event.target.value});
+    this.setState({ dayInterval: event.target.value});
   }
   toggleWeekdayFocus = () => {
     this.setState({...this.state, weekdayFocus: !this.state.weekdayFocus});
-
   }
   handleOnChangeWeekInterval = (event) => {
-    this.setState({...this.state,weekInterval: event.target.value})
+    this.setState({weekInterval: event.target.value})
   }
   handleSubmit() {
-    this.props.submit(this.state);
+    // checks that there is a name that is not blank. 
+    let allowed = this.state.name != '' && this.state.startDate != '';
+    if (this.state.daily) {
+      allowed = allowed && this.state.timesDaily >= 1 && this.state.timesDaily % 1 == 0;
+      allowed = allowed && this.state.dayInterval >= 1 && this.state.dayInterval % 1 == 0;
+      if (allowed) {
+        let habit = {
+          name: this.state.name,
+          startDate: this.state.startDate,
+          timesDaily: this.state.timesDaily,
+          interval: this.state.dayInterval
+        }
+        this.props.submit(habit);
+        this.props.close();
+      }
+
+    } else {
+      if (this.state.weekInterval >= 1 && this.state.weekInterval % 1 == 0) {
+        if (this.state.weekdayFocus) {
+          allowed = this.state.week.Su || this.state.week.Mo || this.state.week.Tu || this.state.week.We || this.state.week.Th || this.state.week.Fr || this.state.week.Sa;
+          if (allowed) {
+            let habit = {
+              name: this.state.name,
+              startDate: this.state.startDate,
+              week: this.state.week,
+              interval: this.state.weekInterval
+            }
+            this.props.submit(habit);
+            this.props.close();
+          }
+        } else {
+        if (this.state.daysWeekly >= 1 && this.state.daysWeekly % 1 == 0) {
+          let habit = {
+            name: this.state.name,
+            startDate: this.state.startDate,
+            timesWeekly: this.state.daysWeekly,
+            interval: this.state.weekInterval
+          }
+          
+          this.props.submit(habit);
+          this.props.close();
+          } 
+        }
+      }
+    }
   }
   // handleSubmit = (event) => {
   //   // event.preventDefault();
@@ -98,7 +151,9 @@ class NewHabit extends Component {
           <div className='flex justify-between space-x-2 items-start'>
             <input 
               type='text' 
-              placeholder='Habit Name' 
+              placeholder='Habit Name'
+              value={this.state.name} 
+              onChange={this.handleNameChange}
               className='p-2 text-lg font-medium border-2 border-gray-300 rounded-md'
             />
             <button 
@@ -116,6 +171,8 @@ class NewHabit extends Component {
             <input 
               type='date' 
               className='p-2 border border-2 border-gray-300 rounded-md' 
+              value={this.state.startDate}
+              onChange={this.handleStartDateChange}
               defaultValue={this.getJSONDate()}
             />
             <div className='w-full mt-2 flex justify-around border border-2 border-red-400 rounded-lg mb-2'>
