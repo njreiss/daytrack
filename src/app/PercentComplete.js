@@ -37,18 +37,16 @@ class PercentComplete extends Component {
 
   // Custom methods
   formatTime() {
-    let time = Math.trunc(((this.state.time - 1704085200000) / 31622400000) * 100000000) / 1000000 + '%'
-    return time
+    let time = Math.trunc(((this.state.time - 1704085200000) / 31622400000) * 100000000) / 1000000;
+    return time.toPrecision(8) + '%';
     // return this.state.time
   }
 
   render() {
     return (
-      <div className='p-6 text-4xl text-black'>
-        <ErrorBoundary>
-          {this.formatTime()}
-        </ErrorBoundary>
-      </div>
+      <span className=''>
+        {this.formatTime()}
+      </span>
     );
   }
 }

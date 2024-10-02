@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import DayBlock from "./dayBlock.js"
 import next from 'next';
 import axios from 'axios';
+import PercentComplete from "./PercentComplete.js";
 
 
 class Calendar extends Component {
@@ -173,13 +174,18 @@ class Calendar extends Component {
 
   render() {
     return (
-      <div className='h-full px-12 pb-12 w-full flex flex-col'>
+      <div className='h-full p-8 w-full flex flex-col'>
         <div className='flex justify-between px-2 border rounded-lg'>
           <button className='text-2xl' onClick={this.subtractMonth}>
             {'<'}
           </button>
-          <div className="text-4xl pb-1">
-            {this.months.get(this.state.today.getMonth())}
+          <div className='flex space-x-5 tabular-nums'>
+            <div className="text-3xl py-2">
+              {this.months.get(this.state.today.getMonth()) + ', ' + this.state.today.getFullYear()}
+            </div>
+            <div className="text-3xl py-2">
+              <PercentComplete/>
+            </div>
           </div>
           <button className='text-2xl' onClick={this.addMonth}>
             {'>'}

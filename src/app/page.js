@@ -6,7 +6,6 @@ export default function Home() {
   return (
     <main className="">
       <div className="h-screen flex flex-col items-center">
-        <PercentComplete/>
         <Calendar/>
       </div>
     </main>
